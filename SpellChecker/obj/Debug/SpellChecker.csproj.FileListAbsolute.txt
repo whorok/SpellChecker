@@ -1,0 +1,9 @@
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\obj\Debug\SpellChecker.csproj.AssemblyReference.cache
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\obj\Debug\SpellChecker.csproj.CoreCompileInputs.cache
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\bin\Debug\SpellChecker.exe
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\bin\Debug\SpellChecker.pdb
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\bin\Debug\nunit.framework.dll
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\bin\Debug\nunit.framework.xml
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\obj\Debug\SpellChecker.csproj.CopyComplete
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\obj\Debug\SpellChecker.exe
+C:\Users\Александр\RiderProjects\TestProjects\SpellChecker\SpellChecker\obj\Debug\SpellChecker.pdb
