@@ -77,7 +77,7 @@ namespace SpellChecker
         private void CheckWordsLength(string[] words)
         {
             if (!IsWordsLengthCorrect(words))
-                throw new Exception($"Sorry, max word length is {MaxWordLength}");
+                throw new Exception($"Sorry, max word length must be {MaxWordLength}");
         }
 
         private bool IsWordsLengthCorrect(IEnumerable<string> text)
