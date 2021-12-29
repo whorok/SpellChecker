@@ -6,7 +6,7 @@ namespace SpellChecker
     {
         public static void Main(string[] args)
         {
-            new SpellChecker(Console.Out).LoadTextFromDefaultPath().FillDictionary()
+            new SpellChecker(Console.Out, "c:\\TestApp\\").LoadTextFromDefaultPath().FillDictionary()
                 .FixSpellingMistakesWith(new CheckAlgorithms().GetDefaultDistance);
             Console.ReadKey();
         }

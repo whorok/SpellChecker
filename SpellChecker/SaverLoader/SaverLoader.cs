@@ -6,40 +6,32 @@ namespace SpellChecker
 {
     public class SaverLoader : ISaver, ILoader
     {
-        public string DefaultPath { get; private set; } = "c:\\TestApp\\";
+        public string DefaultPath { get; set; }
         private string _input = "Input.txt";
         private string _output = "Output.txt";
 
+        public SaverLoader(string path)
+        {
+            if (!Uri.IsWellFormedUriString(path, UriKind.Absolute))
+                DefaultPath = path;
+            else
+                throw new Exception($"Sorry couldn't find the folder:\n{path}");
+        }
+
         public void Save(string outputText)
         {
-            CheckAndCreateDirectory();
-            using (var streamWriter = new StreamWriter(DefaultPath + _output))
-            {
-                streamWriter.WriteLine(outputText);
-            }
+            File.WriteAllText(DefaultPath + _output,outputText);
         }
 
         public string Load()
         {
-            string inputText;
+            string inputText = null;
             if (File.Exists(DefaultPath + _input))
             {
                 inputText = File.ReadAllText(DefaultPath + _input);
             }
-            else
-            {
-                CheckAndCreateDirectory();
-                File.Create(DefaultPath + _input);
-                return string.Empty;
-            }
 
             return inputText;
-        }
-
-        private void CheckAndCreateDirectory()
-        {
-            if (!Directory.Exists(DefaultPath))
-                Directory.CreateDirectory(DefaultPath);
         }
     }
 }

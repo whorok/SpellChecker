@@ -11,14 +11,14 @@ namespace SpellChecker
         private ILoader Loader { get; set; }
         private ITextFormatter TextFormatter { get; set; }
         private ISpellMistakesHandler SpellMistakesHandler { get; set; }
+        
         private readonly TextWriter _textWriter;
         private WordsDictionary<string> _dictionary;
         private string[] _text;
-
-
         public int MaxWordLength { get; set; } = 50;
 
-        public SpellChecker(TextWriter textWriter) : this(new SaverLoader(), new SaverLoader(), new TextFormatter(),
+        public SpellChecker(TextWriter textWriter, string path) : this(new SaverLoader(path),
+            new SaverLoader(path), new TextFormatter(),
             new SpellMistakesHandler(), textWriter)
         {
         }
@@ -35,7 +35,10 @@ namespace SpellChecker
 
         public SpellChecker LoadTextFromDefaultPath()
         {
-            _text = TextFormatter.SplitText(Loader.Load());
+            var load = Loader.Load();
+            if (load == null)
+                throw new Exception($"Please make sure that file \"Input.txt\" exists.\nCheck: {Loader.DefaultPath}");
+            _text = TextFormatter.SplitText(load);
             return this;
         }
 
@@ -43,29 +46,34 @@ namespace SpellChecker
         {
             if (_text == null || _text.Length < 2)
                 throw new Exception(
-                    "Wrong input. Make sure to load the text first.\nKeep in mind that sections must be separated with  \"===\"");
+                    "Wrong input.\nKeep in mind that sections must be separated with  \"===\"");
+
             var words = TextFormatter.SplitWords(_text[0]);
             CheckWordsLength(words);
+
             _dictionary = new WordsDictionary<string>(TextFormatter.SplitWords(_text[0]));
             _textWriter.WriteLine("Dictionary filled successfully");
+
             return this;
         }
 
-        
 
         public void FixSpellingMistakesWith(Func<string, string, int> checkAlgorithm)
         {
             if (_dictionary == null)
                 throw new Exception("Fill the dictionary first.");
+
             var text = TextFormatter.SplitWords(_text[1]);
             CheckWordsLength(text);
+
             var errorWords = SpellMistakesHandler.FindErrorWords(text, _dictionary);
             var pairs = SpellMistakesHandler.FindPairsToErrorWords(errorWords, _dictionary, checkAlgorithm);
             var result = TextFormatter.ReplaceWords(_text[1].Remove(0, 2), pairs);
+
             Saver.Save(result);
             _textWriter.WriteLine("Done!");
         }
-        
+
         private void CheckWordsLength(string[] words)
         {
             if (!IsWordsLengthCorrect(words))
