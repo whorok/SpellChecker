@@ -6,7 +6,7 @@ namespace SpellChecker
 {
     public class SaverLoader : ISaver, ILoader
     {
-        public string DefaultPath { get; set; }
+        public string DefaultPath { get; private set; }
         private string _input = "Input.txt";
         private string _output = "Output.txt";
 
