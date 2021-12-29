@@ -8,7 +8,6 @@ namespace SpellChecker
         {
             new SpellChecker(Console.Out).LoadTextFromDefaultPath().FillDictionary()
                 .FixSpellingMistakesWith(new CheckAlgorithms().GetDefaultDistance);
-            Console.WriteLine("Done!");
             Console.ReadKey();
         }
     }
