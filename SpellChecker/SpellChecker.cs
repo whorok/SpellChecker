@@ -82,7 +82,7 @@ namespace SpellChecker
 
         private bool IsWordsLengthCorrect(IEnumerable<string> text)
         {
-            return text.Any(x => x.Length > 50);
+            return !text.Any(x => x.Length > 50);
         }
     }
 }
