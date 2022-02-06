@@ -11,13 +11,13 @@ namespace SpellChecker
 
         public IEnumerable<string> FindErrorWords(IEnumerable<string> text, WordsDictionary<string> wordsDictionary)
         {
-            return text.Where(x => !wordsDictionary.Contains(x));
+            return text.Where(x => !wordsDictionary.Contains(x, StringComparer.InvariantCultureIgnoreCase));
         }
 
         public IEnumerable<(string, IEnumerable<string>)> FindPairsToErrorWords(IEnumerable<string> errorWords,
             WordsDictionary<string> wordsDictionary, Func<string, string, int> checkAlgorithm)
         {
-            return errorWords.Select(misspelledWord => (errorWord: misspelledWord, FindCorrections(wordsDictionary, checkAlgorithm, misspelledWord)));
+            return errorWords.Select(misspelledWord => (misspelledWord, FindCorrections(wordsDictionary, checkAlgorithm, misspelledWord)));
         }
 
         private IEnumerable<string> FindCorrections(WordsDictionary<string> wordsDictionary,
@@ -27,7 +27,7 @@ namespace SpellChecker
             var correctionList = new List<string>();
             foreach (var correctWord in wordsDictionary)
             {
-                var editDistance = checkAlgorithm(misspelledWord, correctWord);
+                var editDistance = checkAlgorithm(misspelledWord.ToLower(), correctWord.ToLower());
                 if (editDistance > maxEditDistance || editDistance > MaxEditDistance) continue;
                 if (editDistance < maxEditDistance) correctionList.Clear();
                 maxEditDistance = editDistance;

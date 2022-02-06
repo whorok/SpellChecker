@@ -8,7 +8,7 @@ namespace SpellChecker
         {
             new SpellChecker(Console.Out, "c:\\TestApp\\").LoadTextFromDefaultPath().FillDictionary()
                 .FixSpellingMistakesWith(new CheckAlgorithms().GetDefaultDistance);
-            Console.ReadKey();
+             Console.ReadKey();
         }
     }
 }
